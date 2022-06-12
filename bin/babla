@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-from urllib.request import urlopen
+from urllib.request import urlopen,Request
 from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
 import sys
@@ -10,9 +10,11 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("word")
     args = ap.parse_args()
+    print(quote_plus(args.word))
 
-    response = urlopen(f"https://pl.bab.la/slownik/angielski-polski/{quote_plus(args.word)}")
-    soup = BeautifulSoup(response, "lxml")
+    response = Request(f"https://en.bab.la/dictionary/english-arabic/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
+    #webpage  = response
+    soup     = BeautifulSoup(urlopen(response).read().decode('utf-8'), "lxml")
 
     translations = []
 
