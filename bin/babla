@@ -11,23 +11,42 @@ if __name__ == "__main__":
     ap.add_argument("word")
     args = ap.parse_args()
     print(quote_plus(args.word))
-
+    # translate from eng to ar
     response = Request(f"https://en.bab.la/dictionary/english-arabic/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
+    # translate from ar to eng
+    # response = Request(f"https://en.bab.la/dictionary/arabic-english/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
+    # response = Request(f"https://en.bab.la/dictionary/arabic-english/", headers={'User-Agent': 'Mozilla/5.0'})
+
     #webpage  = response
     soup     = BeautifulSoup(urlopen(response).read().decode('utf-8'), "lxml")
 
     translations = []
 
-    try:
-        content_container = soup.findAll("div", attrs={"class": "quick-results container"})[0]
-        for ul in content_container.findAll("ul", attrs={"class": "sense-group-results"}):
-            for a in ul.findAll("a"):
-                translations.append(a.text)
-    except IndexError:
-        print("uhh")
+    eng_alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    
+    def scrape():
+        pass
+    
+    def translate(soup):
+        try:
+            content_container = soup.findAll("div", attrs={"class": "quick-results container"})[0]
+            for ul in content_container.findAll("ul", attrs={"class": "sense-group-results"}):
+                for a in ul.findAll("a"):
+                    if a.text == '\nvolume_up\n':
+                        continue
+                    else:
+                        translations.append(a.text)
+                    print(translations)
+        except IndexError:
+            print("uhh")
 
-    if not translations:
-        sys.exit(1)
-
-    for t in translations:
-        print(t)
+        if not translations:
+            sys.exit(1)
+        #"volume_up".join(translations)
+        for t in translations:
+            #if t == "volume_up":
+            #    continue
+            #else:
+            print(t)
+    translate(soup)
