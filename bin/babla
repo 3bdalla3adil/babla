@@ -2,8 +2,8 @@
 
 import argparse
 from urllib.request import urlopen,Request
-from urllib.parse import quote_plus
-from bs4 import BeautifulSoup
+from urllib.parse   import quote_plus
+from bs4            import BeautifulSoup
 import sys
 
 if __name__ == "__main__":
@@ -12,9 +12,9 @@ if __name__ == "__main__":
     args = ap.parse_args()
     print(quote_plus(args.word))
     # translate from eng to ar
-    response = Request(f"https://en.bab.la/dictionary/english-arabic/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
+    #response = Request(f"https://en.bab.la/dictionary/english-arabic/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
     # translate from ar to eng
-    # response = Request(f"https://en.bab.la/dictionary/arabic-english/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
+    response = Request(f"https://en.bab.la/dictionary/arabic-english/{quote_plus(args.word)}", headers={'User-Agent': 'Mozilla/5.0'})
     # response = Request(f"https://en.bab.la/dictionary/arabic-english/", headers={'User-Agent': 'Mozilla/5.0'})
 
     #webpage  = response
@@ -22,8 +22,8 @@ if __name__ == "__main__":
 
     translations = []
 
-    eng_alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    #eng_alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+    #'m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     
     def scrape():
         pass
@@ -44,9 +44,9 @@ if __name__ == "__main__":
         if not translations:
             sys.exit(1)
         #"volume_up".join(translations)
-        for t in translations:
+        # for t in translations:
             #if t == "volume_up":
             #    continue
             #else:
-            print(t)
+            # print(t)
     translate(soup)
